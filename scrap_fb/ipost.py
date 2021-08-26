@@ -34,7 +34,7 @@ class iPost ():
     #insertion des posts extraits
     def insert_post(self,datas):
         for data in datas:
-            print(data)
+            
             Post.insert_one(data)
 
     #insertion des posts extraits

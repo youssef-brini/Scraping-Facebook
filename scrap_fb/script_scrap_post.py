@@ -81,15 +81,17 @@ def extract_texte(post):
 
 def extract_src_post(post):
       time.sleep(1)
-      postPictures = post.find_all(class_="_5rgu _7dc9 _27x0")      
-      
-      src = ""
-      try :
-        images_links = postPictures[0].find('a')
-        src = "https://m.facebook.com" +images_links['href']
-        time.sleep(1)
-      except:
-        None
+      postPictures = post.find(class_="_5rgu _7dc9 _27x0")      
+      images_links = postPictures.find_all('a')
+      src = []
+      for img in images_links:
+        try :
+            
+            print(img['href'])
+            src.append("https://m.facebook.com" +img['href'])
+            time.sleep(1)
+        except:
+            None
     
       return src
 def extract_video_url(post):
