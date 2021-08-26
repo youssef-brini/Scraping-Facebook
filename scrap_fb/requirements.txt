@@ -1,0 +1,7 @@
+pymongo
+datetime
+hashlib
+selenium
+bs4
+flask
+flask_restful
