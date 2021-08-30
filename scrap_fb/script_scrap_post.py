@@ -104,11 +104,14 @@ def extract_src_post(post):
       return src
 def extract_video_url(post):
         time.sleep(random.randint(1,4))
-        video_div = post.find('div', class_="_53mw")
-        if video_div != None:
-            time.sleep(random.randint(1,4))
-            src = json.loads(video_div.attrs['data-store'])['src']
-            return src   
+        try:
+            video_div = post.find('div', class_="_53mw")
+            if video_div != None:
+                time.sleep(random.randint(1,4))
+                src = json.loads(video_div.attrs['data-store'])['src']
+                return src   
+        except :
+            return []
 
 def who_share(browser,url_post):
     time.sleep(random.randint(1,4))
