@@ -10,7 +10,6 @@ app.config['JSON_AS_ASCII'] = False
 api = Api(app)
 with_comment = True
 datas = []
-list_urls=["https://m.facebook.com/WeviooGroup/posts/776040973025375","https://m.facebook.com/WeviooGroup/posts/811620116134127"]
 class scrapy(Resource):
     def get(self):
         urls = read_file()

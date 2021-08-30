@@ -55,7 +55,7 @@ def extract_nbr_partages(post):
 #extraire la la date du poste
 def extract_post_date(post):
     
-    time.sleep(1)
+    time.sleep(random.randint(1,4))
     paragraphs = post.find_all('abbr')
                    
     par = paragraphs[0].text
@@ -63,42 +63,50 @@ def extract_post_date(post):
 
 #focntion pour extraire et retourner le contenue du titre du post   
 def extract_texte(post):
-      time.sleep(1)
-      actualPosts = post.find_all(class_="story_body_container")
-      
+      time.sleep(random.randint(1,4))
       text = ""
-      if len(actualPosts) >= 1:
-               
-               try:
+      try:
+        actualPosts = post.find_all(class_="story_body_container")
+        
+        
+        if len(actualPosts) >= 1:
                 
-                x=actualPosts[0].find('p').text
-                
-                text=x
-               except:
-                   None
+                try:
+                    
+                    x=actualPosts[0].find('p').text
+                    
+                    text=x
+                except:
+                    None
+      except :
+        return text
       return(text)
 
 
 def extract_src_post(post):
-      time.sleep(1)
-      postPictures = post.find(class_="_5rgu _7dc9 _27x0")      
-      images_links = postPictures.find_all('a')
+      time.sleep(random.randint(1,4))
       src = []
-      for img in images_links:
-        try :
-            
-            print(img['href'])
-            src.append("https://m.facebook.com" +img['href'])
-            time.sleep(1)
-        except:
-            None
-    
+      try :
+        postPictures = post.find(class_="_5rgu _7dc9 _27x0")      
+        images_links = postPictures.find_all('a')
+        
+        for img in images_links:
+            try :
+                
+                print(img['href'])
+                src.append("https://m.facebook.com" +img['href'])
+                time.sleep(random.randint(1,4))
+            except:
+                None
+      except:
+          return src
+
       return src
 def extract_video_url(post):
-        time.sleep(1)
+        time.sleep(random.randint(1,4))
         video_div = post.find('div', class_="_53mw")
         if video_div != None:
-            time.sleep(1)
+            time.sleep(random.randint(1,4))
             src = json.loads(video_div.attrs['data-store'])['src']
             return src   
 
@@ -218,7 +226,7 @@ def Scrap_post(post_url,with_comment):
     _login(browser, EMAIL, PASSWORD)
     time.sleep(random.randint(8,12))
     browser.get(url_post)
-    time.sleep(random.randint(1,4))
+    time.sleep(random.randint(4,8))
     react_data = who_react(browser,url_post) # contient une parametre !!!!!!!!!!!!!!
     time.sleep(random.randint(4,7))
     share_data = who_share(browser,url_post) # contient une parametre !!!!!!!!!!!!!!

@@ -8,9 +8,9 @@ from bs4 import BeautifulSoup as bs
 from selenium.webdriver.common.action_chains import ActionChains
 import random
 PATH = "C:\Program Files (x86)\chromedriver.exe"
-random.randint(3,7)
-def _login(browser, email, password):
 
+def _login(browser, email, password):
+    random.randint(3,7)
     #browser.maximize_window()
     browser.find_element_by_id("email").send_keys(email)
     time.sleep(random.randint(3,7))
@@ -25,18 +25,21 @@ def extract_url_post (post):
 
 def scroll_comment(browser):
     time.sleep(random.randint(1,3))
-    
+    nb_click = 0
     moreComments = browser.find_elements_by_class_name('_108_')
     while moreComments:
+        nb_click +=1
         time.sleep(random.randint(1,3))
         action = webdriver.common.action_chains.ActionChains(browser)
-        time.sleep(1)
+        time.sleep(random.randint(1,3))
         try:
         # move to where the comment button is
             action.move_to_element_with_offset(moreComments[0], 5, 5)
             action.perform()
             moreComments[0].click()
-            time.sleep(2)
+            time.sleep(random.randint(2,5))
+            if nb_click > 10 :
+                break
             moreComments = browser.find_elements_by_class_name('_108_')
         except:
         # do nothing right heree
