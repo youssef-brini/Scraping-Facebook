@@ -118,17 +118,17 @@ def who_share(browser,url_post):
             
             browser.get(person_share)
             try:
-                time.sleep(random.randint(1,4))
+                time.sleep(random.randint(3,7))
                 but= browser.find_element_by_xpath("//div[@class='title mfsm fcl']")
                 while but:
                     
                     ActionChains(browser).move_to_element(but)
-                    time.sleep(random.randint(1,4))
+                    time.sleep(random.randint(3,7))
                     ActionChains(browser).click(but).perform()
-                    time.sleep(random.randint(1,4))
+                    time.sleep(random.randint(3,7))
                     
                     browser.execute_script("document.getElementsByClassName('_i3g _5n09 _55wp')[0].scrollTo(0,document.getElementsByClassName('_i3g _5n09 _55wp')[0].scrollHeight);")
-                    time.sleep(random.randint(2,4))
+                    time.sleep(random.randint(2,5))
                     
                     but= browser.find_element_by_xpath("//div[@class='title mfsm fcl']")
             except:
@@ -142,7 +142,7 @@ def who_share(browser,url_post):
     source_data = browser.page_source
     share_data = bs(source_data, 'html.parser')
     
-    time.sleep(random.randint(1,4))
+    time.sleep(random.randint(2,4))
     browser.get(url_post)
     
     return share_data
@@ -155,17 +155,17 @@ def who_react(browser,url_post):
             
             browser.get(person_react)
             try:
-                time.sleep(random.randint(1,4))
+                time.sleep(random.randint(3,7))
                 but= browser.find_element_by_xpath("//div[@class='title mfsm fcl']")
                 while but:
                     
                     ActionChains(browser).move_to_element(but)
-                    time.sleep(random.randint(1,4))
+                    time.sleep(random.randint(3,7))
                     ActionChains(browser).click(but).perform()
-                    time.sleep(random.randint(1,4))
+                    time.sleep(random.randint(3,7))
                     
                     browser.execute_script("document.getElementsByClassName('_5p-o')[0].scrollTo(0,document.getElementsByClassName('_5p-o')[0].scrollHeight);")
-                    time.sleep(random.randint(2,4))
+                    time.sleep(random.randint(2,5))
                     
                     but= browser.find_element_by_xpath("//div[@class='title mfsm fcl']")
             except:
@@ -177,7 +177,7 @@ def who_react(browser,url_post):
     source_data = browser.page_source
     react_data = bs(source_data, 'html.parser')
     
-    time.sleep(random.randint(1,4))
+    time.sleep(random.randint(2,4))
     browser.get(url_post)
     return react_data
 
