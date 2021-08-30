@@ -43,13 +43,16 @@ def extract_nbr_react(post):
 
 # extraire le nombre de partages
 def extract_nbr_partages(post):
-    postShares = post.find("div",class_="_43lx _55wr")
-    shares = ""
-    if postShares:
-        return (postShares.text)  
+    try:
+        postShares = post.find("div",class_="_43lx _55wr")
+        shares = ""
+        if postShares:
+            return (postShares.text)  
 
-       
-    else:
+        
+        else:
+            return "0"
+    except :
         return "0"
 
 #extraire la la date du poste
@@ -158,14 +161,14 @@ def who_react(browser,url_post):
             
             browser.get(person_react)
             try:
-                time.sleep(random.randint(3,7))
+                time.sleep(random.randint(5,9))
                 but= browser.find_element_by_xpath("//div[@class='title mfsm fcl']")
                 while but:
                     
                     ActionChains(browser).move_to_element(but)
-                    time.sleep(random.randint(3,7))
+                    time.sleep(random.randint(5,9))
                     ActionChains(browser).click(but).perform()
-                    time.sleep(random.randint(3,7))
+                    time.sleep(random.randint(5,9))
                     
                     browser.execute_script("document.getElementsByClassName('_5p-o')[0].scrollTo(0,document.getElementsByClassName('_5p-o')[0].scrollHeight);")
                     time.sleep(random.randint(2,5))
