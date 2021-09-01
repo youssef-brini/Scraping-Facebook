@@ -30,13 +30,16 @@ def extract_url_post (post):
 
 
 def extract_nbr_react(post):
-    postShares = post.find("div",class_="_1g06")
-    
-    if postShares:
-        return (postShares.text)  
-    
-       
-    else:
+    try :
+        postShares = post.find("div",class_="_1g06")
+        
+        if postShares:
+            return (postShares.text)  
+        
+        
+        else:
+            return "0"
+    except :
         return "0"
 
 
@@ -57,12 +60,14 @@ def extract_nbr_partages(post):
 
 #extraire la la date du poste
 def extract_post_date(post):
-    
-    time.sleep(random.randint(1,4))
-    paragraphs = post.find_all('abbr')
-                   
-    par = paragraphs[0].text
-    return(par)
+    try : 
+        time.sleep(random.randint(1,4))
+        paragraphs = post.find_all('abbr')
+                    
+        par = paragraphs[0].text
+        return(par)
+    except :
+        return ""
 
 #focntion pour extraire et retourner le contenue du titre du post   
 def extract_texte(post):
@@ -230,7 +235,7 @@ def Scrap_post(post_url,with_comment):
     url_post = post_url 
     
     _login(browser, EMAIL, PASSWORD)
-    time.sleep(random.randint(8,12))
+    time.sleep(random.randint(9,16))
     browser.get(url_post)
     time.sleep(random.randint(4,8))
     react_data = who_react(browser,url_post) # contient une parametre !!!!!!!!!!!!!!

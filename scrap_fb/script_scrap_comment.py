@@ -47,21 +47,24 @@ def scroll_comment(browser):
    
 #extraire les commentaires
 def extract_commentaires(post):
-    postComments = post.find_all(class_="_2b04")
-    comments = []
-    
-    for comment in postComments:
-        com=dict()
-        person = comment.find("div",class_="_2b05").text
-        com['person'] = person
+    try : 
+        postComments = post.find_all(class_="_2b04")
+        comments = []
+        
+        for comment in postComments:
+            com=dict()
+            person = comment.find("div",class_="_2b05").text
+            com['person'] = person
 
-        comment_text = comment.find_all("div")
-                
-        com['comment'] = comment_text[3].text
-        
-        comments.append(com)
-        
-    return comments
+            comment_text = comment.find_all("div")
+                    
+            com['comment'] = comment_text[3].text
+            
+            comments.append(com)
+            
+        return comments
+    except :
+            return ""
 
 def extract_nbr_commantaire(post):
     postShares = post.find_all("span",class_="d2edcug0 hpfvmrgz qv66sw1b c1et5uql lr9zc1uh a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d3f4x2em fe6kdd0r mau55g9w c8b282yb iv3no6db jq4qci2q a3bd9o3v knj5qynh m9osqain")
