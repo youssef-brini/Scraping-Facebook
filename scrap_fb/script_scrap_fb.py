@@ -61,13 +61,13 @@ def Scrap_facebook(page,nb_scroll):
       with open('./bs.html',"w", encoding="utf-8") as file:
         file.write(str(bs_data.prettify()))
       #list_html contient tous les posts trouvés
-      list_html = bs_data.find_all(class_="du4w35lb k4urcfbm l9j0dhe7 sjgh65i0")
+      list_html = bs_data.find_all(class_="story_body_container")
       data=dict()
       data['posts']= list()
       l= data['posts']
       #pour chaque post on extrait leur info
       for i in list_html:
-           data["_id"]=hachage(page)
+        #    data["_id"]=hachage(page)
            data['url']=page
            data['scraping_date'] = datetime.datetime.now()
            post = dict()
@@ -76,7 +76,7 @@ def Scrap_facebook(page,nb_scroll):
         
            l.append(post)
            
-      #browser.close()
+      browser.close()
       return(data)
 
 
@@ -84,29 +84,29 @@ def Scrap_facebook(page,nb_scroll):
 
 # extraire l'url de la post
 def extract_url_post (post):
-    urls = post.find("a",class_= "oajrlxb2 g5ia77u1 qu0x051f esr5mh6w e9989ue4 r7d6kgcz rq0escxv nhd2j8a9 nc684nl6 p7hjln8o kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x jb3vyjys rz4wbd8a qt6c0cv9 a8nywdso i1ao9s8h esuyzwwr f1sip0of lzcic4wl gmql0nx0 gpro0wi8 b1v8xokw")
-    
-    return urls["href"]
+    urls = post.find("div",class_= "_52jc _5qc4 _78cz _24u0 _36xo")
+    cible = urls.find("a")
+    url = "https://m.facebook.com" + str(cible["href"])
+    return url
 
 def extract_post_date(post):
-    div = post.find_all(class_="oajrlxb2 g5ia77u1 qu0x051f esr5mh6w e9989ue4 r7d6kgcz rq0escxv nhd2j8a9 nc684nl6 p7hjln8o kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x jb3vyjys rz4wbd8a qt6c0cv9 a8nywdso i1ao9s8h esuyzwwr f1sip0of lzcic4wl gmql0nx0 gpro0wi8 b1v8xokw")
+    div = post.find(class_="_52jc _5qc4 _78cz _24u0 _36xo")
     if div :
-            paragraphs = div[0].find('span')
+            dat = div.text
             
-            return(paragraphs.text)
+            return(dat)
 
 
 def _scroll(browser, infinite_scroll, lenOfPage):
     lastCount = -1
-    match = False
-    while not match:   
+    
+    while (lenOfPage > lastCount):   
         time.sleep(random.randint(1,4))
         lastCount += 1
         browser.execute_script(
                 "window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return "
                 "lenOfPage;")
         time.sleep(random.randint(1,3))
-        if lastCount == lenOfPage:
-            match = True
+        
             
 
