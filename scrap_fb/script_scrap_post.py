@@ -8,28 +8,29 @@ from bs4 import BeautifulSoup as bs
 from configurations_MongoDb.insert_posts_mongoDB import insert_post
 from selenium.webdriver.common.action_chains import ActionChains
 from script_scrap_comment import extract_commentaires,scroll_comment
+from script_scrap_fb import _login
 import random
 import json
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"
 
-def _login(browser, email, password):
-
-    #browser.maximize_window()
-    browser.find_element_by_id("email").send_keys(email)
-    time.sleep(random.randint(4,7))
-    browser.find_element_by_name("pass").send_keys(password)
-    time.sleep(random.randint(4,7))
-    browser.find_element_by_name("login").click()
-    time.sleep(random.randint(4,7))
-
 def extract_url_post (post):
-    urls = post.find("a",class_= "oajrlxb2 g5ia77u1 qu0x051f esr5mh6w e9989ue4 r7d6kgcz rq0escxv nhd2j8a9 nc684nl6 p7hjln8o kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x jb3vyjys rz4wbd8a qt6c0cv9 a8nywdso i1ao9s8h esuyzwwr f1sip0of lzcic4wl gmql0nx0 gpro0wi8 b1v8xokw")
+    '''
+    This function allow you to extract the URL post .
+    :param post : this is a html container
     
+    '''
+    urls = post.find("a",class_= "oajrlxb2 g5ia77u1 qu0x051f esr5mh6w e9989ue4 r7d6kgcz rq0escxv nhd2j8a9 nc684nl6 p7hjln8o kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x jb3vyjys rz4wbd8a qt6c0cv9 a8nywdso i1ao9s8h esuyzwwr f1sip0of lzcic4wl gmql0nx0 gpro0wi8 b1v8xokw")
+
     return urls["href"]
 
 
 def extract_nbr_react(post):
+    '''
+    This function allow you to extract the number of reaction in  post .
+    :param post : this is a html container
+    
+    '''
     try :
         postShares = post.find("div",class_="_1g06")
         
@@ -45,7 +46,12 @@ def extract_nbr_react(post):
 
 
 # extraire le nombre de partages
-def extract_nbr_partages(post):
+def extract_nbr_shares(post):
+    '''
+    This function allow you to extract the number of shares in  post .
+    :param post : this is a html container
+    
+    '''
     try:
         postShares = post.find("div",class_="_43lx _55wr")
         shares = ""
@@ -60,8 +66,13 @@ def extract_nbr_partages(post):
 
 #extraire la la date du poste
 def extract_post_date(post):
+    '''
+    This function allow you to extract the post date  .
+    :param post : this is a html container
+    
+    '''
     try : 
-        time.sleep(random.randint(1,4))
+        
         paragraphs = post.find_all('abbr')
                     
         par = paragraphs[0].text
@@ -70,8 +81,13 @@ def extract_post_date(post):
         return ""
 
 #focntion pour extraire et retourner le contenue du titre du post   
-def extract_texte(post):
-      time.sleep(random.randint(1,4))
+def extract_text(post):
+    
+      '''
+    This function allow you to extract the post text.
+    :param post : this is a html container
+    
+      '''
       text = ""
       try:
         actualPosts = post.find_all(class_="story_body_container")
@@ -92,7 +108,11 @@ def extract_texte(post):
 
 
 def extract_src_post(post):
-      time.sleep(random.randint(1,4))
+      '''
+    This function allow you to extract the sources images in  post .
+    :param post : this is a html container
+    
+      '''
       src = []
       try :
         postPictures = post.find(class_="_5rgu _7dc9 _27x0")      
@@ -103,7 +123,7 @@ def extract_src_post(post):
                 
                 print(img['href'])
                 src.append("https://m.facebook.com" +img['href'])
-                time.sleep(random.randint(1,4))
+                
             except:
                 None
       except:
@@ -111,17 +131,28 @@ def extract_src_post(post):
 
       return src
 def extract_video_url(post):
-        time.sleep(random.randint(1,4))
+        '''
+    This function allow you to extract the source video in  post .
+    :param browser : this is an instance of webdriver
+    :param url_post : this is the URL post 
+
+        '''
         try:
             video_div = post.find('div', class_="_53mw")
             if video_div != None:
-                time.sleep(random.randint(1,4))
+    
                 src = json.loads(video_div.attrs['data-store'])['src']
                 return src   
         except :
             return []
 
 def who_share(browser,url_post):
+    '''
+    This function takes two parameters and return a html instance contain persons names who shares post
+    :param browser : this is an instance of webdriver
+    :param url_post : this is the URL post 
+    
+    '''
     time.sleep(random.randint(1,4))
     try:
             person_share = browser.find_element_by_xpath("//div[@class='_43lx _55wr']//a")
@@ -159,6 +190,11 @@ def who_share(browser,url_post):
     return share_data
     
 def who_react(browser,url_post):
+    '''
+    This function takes two parameters and return a html instance contain persons names who react in post
+    :param post : this is a html container
+    
+    '''
     time.sleep(random.randint(1,4))
     try:
             person_react = browser.find_element_by_xpath("//div[@class='_52jh _5ton _45m7']//a")
@@ -193,6 +229,11 @@ def who_react(browser,url_post):
     return react_data
 
 def extract_who_react(post):
+    '''
+    This function allow you to extract the names persons who react in  post .
+    :param post : this is a html container
+    
+    '''
     persons_name = []
     try :
         persons = post.find_all(class_="_4mo")
@@ -205,6 +246,11 @@ def extract_who_react(post):
         pass
     return persons_name
 def extract_who_share(post):
+    '''
+    This function allow you to extract the names persons who share the post .
+    :param post : this is a html container
+    
+    '''
     persons_name = []
     try : 
         persons = post.find_all(class_="_4mo")
@@ -218,6 +264,11 @@ def extract_who_share(post):
         pass
     return persons_name
 def Scrap_post(post_url,with_comment):
+    '''
+    This function takes two parameters the post_url and the option with_comment, it return datas with different details
+    :param url_post : this is the URL post 
+    :param with_comment : this is an option to scrap your post with comments or Not
+    '''
     with open("C:/Users/Youssef/Documents/MyCode/scrap_fb/Configurations_fb.txt") as file:
         EMAIL = file.readline().split('"')[1]
         PASSWORD = file.readline().split('"')[1] 
@@ -266,11 +317,11 @@ def Scrap_post(post_url,with_comment):
     data['url']=url_post
     data['scraping_date'] = datetime.datetime.now()
     
-    data["titre"]=extract_texte(list_html);
+    data["titre"]=extract_text(list_html);
     data["src_img"]=extract_src_post(list_html);
     data["video_src"]=extract_video_url(list_html);
     
-    data["nbr_de_partage"]= extract_nbr_partages(list_html);
+    data["nbr_de_partage"]= extract_nbr_shares(list_html);
     data["post_date"]=extract_post_date(list_html);
     data["nbr_de_react"]=extract_nbr_react(list_html);
     data["who_react"] =extract_who_react(react_html);

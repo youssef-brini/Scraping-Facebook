@@ -19,18 +19,22 @@ def hachage(ch):
     ch1= h.hexdigest()
     return(ch1)
 
-
-
 def _login(browser, email, password):
+    '''
+    This function allow you to login in Facebook .
+    :param browser : this is an instance of webdriver
+    :param email : this is an email Facebook
+    :param password : this is a password account
 
+    '''
     #browser.maximize_window()
     browser.find_element_by_id("email").send_keys(email)
-    time.sleep(random.randint(3,7))
+    time.sleep(random.randint(4,7))
     browser.find_element_by_name("pass").send_keys(password)
-    time.sleep(random.randint(3,7))
+    time.sleep(random.randint(4,7))
     browser.find_element_by_name("login").click()
-    time.sleep(random.randint(3,7))
-    
+    time.sleep(random.randint(4,7))
+
     
 #fonction scraping fb    
 def Scrap_facebook(page,nb_scroll):

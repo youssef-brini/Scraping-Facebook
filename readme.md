@@ -7,7 +7,7 @@
  * test.csv : fichier ( configuration_file.py )
  * configuration fb : fichiers dans la methode login (script_scrap_comment.py , script_scrap_fb.py , script_scrap_post.py)
 #### configurer votre compte Facebook :
-   entre votre adresse et mot de pass dans le fichier "Configurations_fb.txt"
+   entrer votre adresse et mot de pass dans le fichier "Configurations_fb.txt"
 #### Afin de pouvoir exécuter l'application, vous devez d'aborder installer les dépendances suivantes :
   * pymongo
   * datetime
@@ -19,10 +19,18 @@
  
 ### Installation
 1. Ouvrir une invite de commande
-2. tapez : pip install "nom du bibliothèque" .
+2. taper : pip install "nom du bibliothèque" .
  
 ## Exécution
-1. ouvrire le projet sur votre Editeur
-2. Exécuter le fichier "api_facebook_scrap_post.py"
-3. Ouvrir une invite de commande et aller sur l'emplacement du projet ( cd /path )
-4. Exécuter le fichier "ipost.py" (py ipost.py)
+* Post Scraping
+   1. remplir le fichier "test.csv" par les URLs des posts que vous voulez scrappé  
+   2. ouvrire le projet sur votre Editeur
+   3. Exécuter le fichier "api_facebook_scrap_post.py"
+   4. Ouvrir une invite de commande et aller sur l'emplacement du projet ( cd /path )
+   5. Exécuter le fichier "ipost.py" (py ipost.py)
+* Page Scraping
+   1. ouvrire le projet sur votre Editeur
+   2. remplire la liste « liste_urls » dans le fichier api_facebook_scrap par les urls des pages facebook que vous souhaitez scrappez 
+   3. exécuter le fichier "api_facebook_scrap.py"
+   4. connecter sur le lien " http://127.0.0.1:5000/api/scraping"
+   
